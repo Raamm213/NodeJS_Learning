@@ -1,7 +1,8 @@
 const fs = require("fs")
 const os = require("os")
-
 const EventEmitterClass = require("events")
+const logger = new Logger()
+const logFile = './logFile.txt'
 
 
 class Logger extends EventEmitterClass {
@@ -10,9 +11,7 @@ class Logger extends EventEmitterClass {
     }
 }
 
-const logger = new Logger()
-const logFile = './logFile.txt'
-
+logger.on('message' , logToFile)
 
 const logToFile = (event) => {
     const logmeg = `${new Date().toISOString()} - ${event.message} \n`
@@ -24,7 +23,6 @@ const logToFile = (event) => {
 }
 
 
-logger.on('message' , logToFile)
 
 
 setInterval(()=>{
